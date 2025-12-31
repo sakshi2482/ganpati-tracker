@@ -1,0 +1,41 @@
+{
+  "name": "pune-ganpati-visarjan-tracker",
+  "version": "1.0.0",
+  "description": "Real-time GPS tracking website for Ganpati Visarjan processions in Pune city",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 8000",
+    "serve": "python -m http.server 8000"
+  },
+  "keywords": [
+    "ganpati",
+    "visarjan",
+    "pune",
+    "tracking",
+    "gps",
+    "leaflet",
+    "real-time",
+    "map"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/pune-ganpati-visarjan-tracker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/pune-ganpati-visarjan-tracker/issues"
+  },
+  "homepage": "https://github.com/yourusername/pune-ganpati-visarjan-tracker#readme",
+  "devDependencies": {},
+  "dependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+} 

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pune Ganpati Visarjan Live Tracker</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-shield"></i> Admin Login</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <h1><i class="fas fa-map-marker-alt"></i> Pune Ganpati Visarjan Live Tracker</h1>
+            <div class="nav-controls">
+                <div id="admin-info" style="display: none;">
+                    <span class="admin-name">Admin</span>
+                    <button id="assign-route-btn" class="btn-admin">Assign Routes</button>
+                    <button id="logout-btn" class="btn-logout">Logout</button>
+                </div>
+                <button id="theme-toggle" class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="last-update">
+                    <i class="fas fa-clock"></i>
+                    <span id="last-update-time">--</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3><i class="fas fa-list"></i> Mandals (100)</h3>
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Search mandals...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+            </div>
+            <div class="sidebar-content">
+                <div id="mandals-list" class="mandals-list">
+                    <!-- Mandals will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Container -->
+        <div class="map-container">
+            <div id="map"></div>
+            <div class="map-controls">
+                <button id="center-map" class="control-btn" title="Center on Pune">
+                    <i class="fas fa-crosshairs"></i>
+                </button>
+                <button id="toggle-updates" class="control-btn active" title="Toggle Updates">
+                    <i class="fas fa-play"></i>
+                </button>
+            </div>
+            
+            <!-- Route Legend -->
+            <div class="route-legend">
+                <h4>Route Status</h4>
+                <div class="legend-item">
+                    <div class="legend-color on-time"></div>
+                    <span>Completed</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color on-track"></div>
+                    <span>On Track</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color delayed"></div>
+                    <span>Delayed</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color missed"></div>
+                    <span>Missed Slot</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color not-started"></div>
+                    <span>Not Started</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Notification Sidebar -->
+        <div class="notification-sidebar">
+            <div class="notification-header">
+                <h3><i class="fas fa-bell"></i> Notifications</h3>
+                <button id="clear-notifications" class="btn-clear">Clear All</button>
+            </div>
+            <div class="notification-content">
+                <div id="notifications-list">
+                    <!-- Notifications will be populated here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Admin Assignment Modal -->
+        <div id="assignment-modal" class="modal">
+            <div class="modal-content assignment-modal">
+                <div class="modal-header">
+                    <h2><i class="fas fa-edit"></i> Assign Time Slot & Route</h2>
+                    <span class="close" id="close-assignment">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <form id="assignment-form">
+                        <div class="form-group">
+                            <label for="mandal-select">Select Mandal</label>
+                            <select id="mandal-select" required>
+                                <option value="">Choose a mandal...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="start-time">Start Time</label>
+                            <input type="time" id="start-time" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="end-time">End Time</label>
+                            <input type="time" id="end-time" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Start Location</label>
+                            <div class="coordinate-inputs">
+                                <input type="number" id="start-lat" placeholder="Latitude" step="0.0001" required>
+                                <input type="number" id="start-lng" placeholder="Longitude" step="0.0001" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>End Location</label>
+                            <div class="coordinate-inputs">
+                                <input type="number" id="end-lat" placeholder="Latitude" step="0.0001" required>
+                                <input type="number" id="end-lng" placeholder="Longitude" step="0.0001" required>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Assign</button>
+                            <button type="button" id="preview-route" class="btn-secondary">Preview Route</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
