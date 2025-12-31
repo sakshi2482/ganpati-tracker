@@ -1,36 +1,40 @@
 # Ganpati Tracker System
 
- 📌 Overview
-Ganpati Tracker is a technology-based system designed to track and monitor Ganpati procession routes in real time. The system helps in crowd management, location tracking, and improving safety during Ganpati festivals.
+📌 Overview
+Ganpati Tracker is a web-based tracking system designed to monitor and visualize Ganpati procession routes in real time. The project aims to improve crowd management, traffic coordination, and public safety during Ganpati festivals through location-based tracking and route visualization.
 
 🛠️ Technologies Used
-- Python
-- GPS / Location Tracking
-- IoT
+- HTML
+- CSS
+- JavaScript
+- GPS / Location Tracking (concept-based)
 - Data Processing
-- Mapping Concepts
+- Mapping & Visualization Concepts
 
 🚀 Features
-- Real-time location tracking of Ganpati procession
+- Real-time procession location tracking
 - Route monitoring and visualization
-- Helps authorities with crowd and traffic management
+- Supports crowd and traffic management
 - Improves safety and coordination during festivals
-  
+
 ▶️ How It Works
-1. Location data is collected using GPS or tracking modules  
-2. Data is processed and mapped to show live movement  
-3. Authorities or users can monitor procession routes  
+1. Location data is captured using GPS or tracking sources  
+2. Data is processed and mapped to display live movement  
+3. Users or authorities can monitor procession routes via the web interface  
 
 📂 Project Structure
 Ganpati-Tracker/
 - src/
+  - index.html
+  - script.js
+  - styles.css
 - README.md
 
-🎯 Use Case
+🎯 Use Cases
 - Ganpati festival procession management
-- Crowd control and public safety
-- Smart city event monitoring
-- 
+- Crowd control and public safety monitoring
+- Smart city event tracking applications
+
 👤 Author
 Sakshi Birajdar  
 3rd Year ENTC Engineering Student
